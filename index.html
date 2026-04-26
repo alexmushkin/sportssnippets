@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Basketball</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?t=12345">
+</head>
+
+<body>
+    <div class="content-container">
+        <h1 class="main-title">Sports Snippets</h1>
+
+        <div id="arrow-toggle" class="arrow-toggle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+            </svg>
+        </div>
+
+        <div id="subtitle-container" class="subtitle-container">
+            <p class="subtitle">As we continually move into new ages in every aspect of our lives, we inevitably lose
+                some of the past. Our memories are compressed and we have to work to unzip them. We want to remember the
+                first time we felt the magnitude of a crowded stadium. The heartbreak shown on one team and the peak of
+                humanity on the other. The wonder deep inside your child self as you believed, “maybe that could be me.”
+                For those who were not there and for those who want to relive it, let us take you back.</p>
+        </div>
+
+        <div class="nav-buttons-column">
+            <div class="nav-buttons">
+                <a href="vault.html" class="nav-btn">The Vault</a>
+                <a href="#" class="nav-btn">From the Stars</a>
+            </div>
+            <div class="nav-buttons">
+                <a href="this-week.html" class="nav-btn" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; flex-direction: column;">
+                    This Week
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 5v14M19 12l-7 7-7-7" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div id="latest-preview-container" class="latest-preview-container" style="display: none; text-align: center; margin-top: 30px; width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <h3 class="preview-title" style="color: white; font-family: 'Courier New', monospace; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 10px; text-align: center;">Latest on This Week: <br><span id="preview-title-text" style="color: #FF5722; font-size: 1.45rem;"></span></h3>
+            <div style="max-height: 450px; overflow-y: auto; padding-right: 15px; max-width: 650px; margin: 0 auto; padding-top: 10px; padding-bottom: 10px;">
+                <p id="preview-text" class="preview-text" style="color: #000; font-family: 'Courier New', monospace; font-size: 1.1rem; line-height: 1.6; min-height: 3em; text-align: center; white-space: pre-wrap; margin: 0;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('this-week-articles.json')
+                .then(response => response.json())
+                .then(articles => {
+                    if (articles && articles.length > 0) {
+                        const latest = articles[0];
+                        document.getElementById('latest-preview-container').style.display = 'block';
+                        document.getElementById('preview-title-text').innerText = latest.mainHeader;
+                        
+                        fetch(latest.markdownFile)
+                            .then(res => res.text())
+                            .then(text => {
+                                const textElement = document.getElementById('preview-text');
+                                textElement.textContent = ''; // clear text
+                                
+                                // Split text into paragraphs based on double newlines
+                                const paragraphs = text.split(/\n\n+/).filter(p => p.trim() !== '');
+                                let pIndex = 0;
+                                
+                                function dropParagraph() {
+                                    if (pIndex < paragraphs.length) {
+                                        // Append the next paragraph with a double newline
+                                        textElement.textContent += paragraphs[pIndex] + '\n\n';
+                                        pIndex++;
+                                        // Wait 800ms before showing the next paragraph
+                                        setTimeout(dropParagraph, 800);
+                                    }
+                                }
+                                
+                                // Start the paragraph-by-paragraph effect after a short delay
+                                setTimeout(dropParagraph, 500);
+                            })
+                            .catch(err => console.error('Error loading markdown file:', err));
+                    }
+                })
+                .catch(err => console.error('Error loading latest article:', err));
+        });
+    </script>
+
+    <!-- Basketball Hoops -->
+    <div class="hoop-container left-hoop">
+        <div class="backboard">
+            <div class="inner-square"></div>
+            <div class="rim-connect"></div>
+            <div class="rim">
+                <div class="net"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hoop-container right-hoop">
+        <div class="backboard">
+            <div class="inner-square"></div>
+            <div class="rim-connect"></div>
+            <div class="rim">
+                <div class="net"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            const errorDiv = document.createElement('div');
+            errorDiv.style.position = 'fixed';
+            errorDiv.style.top = '0';
+            errorDiv.style.left = '0';
+            errorDiv.style.width = '100vw';
+            errorDiv.style.backgroundColor = 'red';
+            errorDiv.style.color = 'white';
+            errorDiv.style.zIndex = '999999';
+            errorDiv.style.padding = '20px';
+            errorDiv.style.fontSize = '20px';
+            errorDiv.innerHTML = `<strong>Error:</strong> ${message}<br>Location: ${source}:${lineno}:${colno}<br><pre>${error && error.stack}</pre>`;
+            document.body.appendChild(errorDiv);
+        };
+    </script>
+    <script src="script.js?v=9.9"></script>
+</body>
+
+</html>

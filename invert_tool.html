@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <script>
+        const assets = [
+            "assets/anim_front_basketball_v26_final.png",
+            "assets/anim_front_football_black_bg.png",
+            "assets/anim_front_baseball_black_bg.png",
+            "assets/anim_front_tennis_black_bg.png",
+            "assets/anim_front_soccer_black_bg.png"
+        ];
+
+        async function invertAndDownload() {
+            for (const src of assets) {
+                await new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = src;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+
+                        // Invert
+                        ctx.filter = 'invert(1)';
+                        ctx.drawImage(img, 0, 0);
+
+
+                        // Trigger download/save logic (simulated by console for browser_subagent to scrape? 
+                        // No, browser_subagent can't easily save files from download. 
+                        // Use a visual result that I can capture? No, I need the FILE.
+                        // Backtrack: Use a python script that doesn't need PIL?
+                        // Or install PIL? I can't install.
+                        // simple python with NO dependencies for PNG? Hard.
+                        // Wait, I can use 'screencapture' of the inverted canvas? No, compression.
+
+                        resolve();
+                    };
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

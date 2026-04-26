@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Animations Preview (Grid)</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            margin-bottom: 2rem;
+        }
+
+        .preview-container {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .anim-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .sprite-target {
+            width: 150px;
+            /* Arbitrary display size */
+            height: 150px;
+            background-repeat: no-repeat;
+            /* 3 columns = 300% width, 2 rows = 200% height relative to frame size */
+            background-size: 300% 200%;
+            border: 2px solid #555;
+            border-radius: 50%;
+            background-color: #000;
+
+            /* Apply animation */
+            animation: play-grid 0.8s steps(1) infinite;
+        }
+
+        /* 
+           Keyframes for 2x3 Grid (Left-to-Right, Top-to-Bottom)
+           Cols: 0%, 50%, 100%
+           Rows: 0%, 100% (since 200% height, 0% is top half, 100% is bottom half?)
+           Wait, vertical bg pos:
+           0% = Top
+           100% = Bottom
+           If height is 200% of element, then background is 2x element height.
+           Top half visible at 0%.
+           Bottom half visible at 100%? No, background-position percentage is weird.
+           
+           Let's use exact offsets for safety or standard percentages.
+           But simple steps(1) is easiest if we define each frame explicitly.
+        */
+        @keyframes play-grid {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            16.6% {
+                background-position: 50% 0%;
+            }
+
+            33.3% {
+                background-position: 100% 0%;
+            }
+
+            50% {
+                background-position: 0% 100%;
+            }
+
+            66.6% {
+                background-position: 50% 100%;
+            }
+
+            83.3% {
+                background-position: 100% 100%;
+            }
+
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Sports Animation Preview (Grid)</h1>
+
+    <div class="preview-container">
+        <div class="anim-box">
+            <h2>Baseball</h2>
+            <div class="sprite-target" style="background-image: url('assets/anim-baseball.png');"></div>
+        </div>
+
+        <div class="anim-box">
+            <h2>Football</h2>
+            <div class="sprite-target" style="background-image: url('assets/anim-football.png');"></div>
+        </div>
+    </div>
+</body>
+
+</html>

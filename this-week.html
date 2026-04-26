@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This Week - Sports History</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Courier+New:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?t=12345678">
+    <link rel="stylesheet" href="this-week.css?t=12345678">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <div class="nav-container-week">
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+
+    <div class="week-layout">
+        <div class="sidebar-container">
+            <!-- Up Arrow (Absolute Positioned via CSS) -->
+            <div class="scroll-arrow-container arrow-wrapper-top">
+                <div class="scroll-arrow hidden" id="scrollArrowUp">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(180deg);">
+                        <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="rolodex-window">
+                <div class="rolodex-track" id="rolodexTrack">
+                    <!-- Cards will be injected here dynamically -->
+                </div>
+            </div>
+
+            <!-- Down Arrow (Absolute) -->
+            <div class="scroll-arrow-container arrow-wrapper-bottom">
+                <div class="scroll-arrow" id="scrollArrowDown">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content-area" id="mainContentArea">
+            <!-- Content will be injected here dynamically -->
+        </div>
+    </div>
+
+    <script src="this-week.js?t=12345678"></script>
+</body>
+
+</html>

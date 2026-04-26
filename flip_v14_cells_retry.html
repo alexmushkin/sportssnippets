@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <img id="source" src="assets/temp_v14_base.png" style="display:none;">
+    <canvas id="canvas" width="1024" height="1024"></canvas>
+    <script>
+        window.onload = function () {
+            const img = document.getElementById('source');
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Clear
+            ctx.clearRect(0, 0, 1024, 1024);
+
+            // Force white background
+            ctx.fillStyle = 'white'; // Actually want transparent for game, but for review white is fine? No, stick figures are white. Background is Black. Start with Black.
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, 1024, 1024);
+
+            const w = 1024;
+            const h = 1024;
+            const colW = w / 3;
+            const rowH = h / 2;
+
+            // Function to draw a cell flipped
+            function drawFlipped(srcX, srcY, destX, destY) {
+                ctx.save();
+                ctx.translate(destX + colW, destY);
+                ctx.scale(-1, 1);
+                ctx.drawImage(img, srcX, srcY, colW, rowH, 0, 0, colW, rowH);
+                ctx.restore();
+            }
+
+            // Process v14_righty (Sequence: 1, 2, 3 / 4, 5, 6)
+            // Flip each cell in place.
+
+            // Row 1
+            drawFlipped(0, 0, 0, 0);          // Frame 1
+            drawFlipped(colW, 0, colW, 0);    // Frame 2
+            drawFlipped(colW * 2, 0, colW * 2, 0);// Frame 3
+
+            // Row 2
+            drawFlipped(0, rowH, 0, rowH);       // Frame 4
+            drawFlipped(colW, rowH, colW, rowH); // Frame 5
+            drawFlipped(colW * 2, rowH, colW * 2, rowH); // Frame 6
+
+            console.log("Canvas Ready");
+            // Add a visible marker for the subagent to see
+            const div = document.createElement('div');
+            div.id = 'ready-marker';
+            div.style.position = 'absolute';
+            div.style.top = '0';
+            div.style.left = '0';
+            div.style.width = '10px';
+            div.style.height = '10px';
+            div.style.background = 'green';
+            document.body.appendChild(div);
+        };
+    </script>
+</body>
+
+</html>

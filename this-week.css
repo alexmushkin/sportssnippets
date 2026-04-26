@@ -1,0 +1,330 @@
+body {
+    overflow: hidden;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #e0e0e0;
+}
+
+.nav-container-week {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 4px;
+    transition: opacity 0.2s;
+    border: 1px solid #ccc;
+}
+
+.week-layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    padding: 20px;
+    gap: 40px;
+    box-sizing: border-box;
+    align-items: flex-start;
+}
+
+/* --- Sidebar: Rolodex --- */
+.sidebar-container {
+    width: 360px;
+    height: 900px;
+    /* Force fixed height to ensure room */
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    /* Removed justify-content: space-between to manually place arrows */
+    justify-content: center;
+}
+
+/* New Arrow Logic: Absolute Positioning to guarantee visibility */
+.scroll-arrow-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    /* Super high Z-index */
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    /* Let clicks pass through container, but button catches them */
+}
+
+/* Wrapper for arrows */
+.arrow-wrapper-top {
+    top: 0;
+}
+
+.arrow-wrapper-bottom {
+    bottom: 0;
+}
+
+.scroll-arrow {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s, opacity 0.3s;
+    pointer-events: auto;
+    /* Re-enable pointer events on the button itself */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* Shadow to separate from cards */
+}
+
+.scroll-arrow:hover {
+    transform: scale(1.1);
+    background: #f0f0f0;
+}
+
+.scroll-arrow.hidden {
+    opacity: 0;
+    pointer-events: none;
+    cursor: default;
+}
+
+
+/* Window Mask */
+.rolodex-window {
+    width: 100%;
+    height: 780px;
+    /* 900 - 60 - 60 = 780px available for cards */
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* Start from top */
+    /* Add padding to ensure cards aren't cut off by mask immediately */
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.rolodex-track {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    transition: transform 0.4s ease-out;
+    will-change: transform;
+}
+
+/* --- VINTAGE CARD STYLE --- */
+.rolodex-card {
+    /* MATH: 780px / 3 = 260px per slot including gap.
+       Let's do 240px Card + 20px Gap = 260px.
+       3 * 260 = 780. Perfect fit. */
+    width: 220px;
+    height: 240px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, z-index 0s;
+    /* Separate z-index transition to prevent flicker */
+
+    background: #fff;
+    border: 6px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: visible;
+    z-index: 10;
+}
+
+/* Top Banner */
+.card-topps-banner {
+    background: #000;
+    color: #fff;
+    font-family: 'Anton', 'Impact', sans-serif;
+    font-size: 1.4rem;
+    padding: 4px;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #fff;
+}
+
+/* Image Slot */
+.card-image-slot {
+    flex-grow: 1;
+    background: #ccc;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Bottom Nameplate */
+.card-nameplate {
+    background: #f0f0f0;
+    padding: 6px 8px;
+    border-top: 2px solid #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.nameplate-main {
+    font-family: 'Anton', sans-serif;
+    color: #000;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nameplate-sub {
+    font-family: 'Courier New', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+}
+
+/* Circle Logo */
+.card-team-logo {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    width: 40px;
+    height: 40px;
+    background: #FF5722;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 5;
+}
+
+/* Description Overlay */
+.card-description-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px;
+    font-size: 0.8rem;
+    line-height: 1.3;
+    opacity: 0;
+    /* Hidden by default */
+    transform: translateY(10px);
+    /* Slightly down */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+    border-top: 2px solid #000;
+    color: #222;
+    pointer-events: none;
+    /* Let clicks pass through unless expanded */
+}
+
+/* HOVER BEHAVIOR FIXED */
+.rolodex-card:hover {
+    transform: scale(1.15);
+    /* Explicit expand */
+    z-index: 500;
+    /* Pop to very top */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.rolodex-card:hover .card-description-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* --- Main Content Area --- */
+.main-content-area {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 420px; /* Counterbalance the 360px sidebar + 40px gap + 20px layout padding to leave exact room for a right-side panel */
+}
+
+.main-feature-card {
+    width: 100%;
+    max-width: 900px;
+    height: 90vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 0;
+    background-color: #fff;
+    border: 8px solid white;
+}
+
+/* Header Stats Bar */
+.card-header-stats {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 40px;
+    display: flex;
+    gap: 30px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-bottom: 1px solid #333;
+}
+
+.stat-item {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.main-feature-card .card-header {
+    background: transparent;
+    padding: 30px 40px 10px;
+    text-align: center;
+}
+
+.main-feature-card .card-header h2 {
+    color: #FF5722;
+    font-family: 'Courier New', monospace;
+    font-size: 1.45rem;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.main-feature-card .card-body {
+    padding: 40px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: center;
+    white-space: pre-wrap;
+    color: #000;
+}
+
+.main-feature-card::-webkit-scrollbar {
+    display: none;
+}

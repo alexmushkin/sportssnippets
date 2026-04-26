@@ -1,0 +1,16 @@
+[
+  {
+    "id": "the-lost-art-of-watching",
+    "weekText": "WEEK 5",
+    "title": "The Lost Art",
+    "subtitle": "of Watching",
+    "description": "It's April 23rd, 2012. The dog days of the lockout-shortened NBA season. It is game #64 for the Charlotte Bobcats. They are 7-56...",
+    "thumbnailStats": "DATE: APR 23, 2012",
+    "thumbnailImage": "the-lost-art.jpg",
+    "teamLogo": "5",
+    "mainHeader": "The Lost Art of Watching",
+    "mainStats": ["DATE: APR 23, 2012", "GAME: CHA vs WAS", "LOCATION: VERIZON CENTER"],
+    "mainImage": "https://images.unsplash.com/photo-1594910398047-495e865a7df4?q=80&w=1000&auto=format&fit=crop",
+    "markdownFile": "articles/the-lost-art-of-watching.md"
+  }
+]

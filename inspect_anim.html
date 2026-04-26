@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            background: #333;
+            color: white;
+        }
+
+        img {
+            border: 1px solid red;
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Asset Inspection</h1>
+    <h2>Baseball</h2>
+    <img id="baseball" src="assets/anim-baseball.png">
+    <h2>Football</h2>
+    <img id="football" src="assets/anim-football.png">
+    <script>
+        window.onload = () => {
+            const b = document.getElementById('baseball');
+            const f = document.getElementById('football');
+            const info = document.createElement('div');
+            info.innerHTML = `
+            Baseball: ${b.naturalWidth}x${b.naturalHeight} (Ratio: ${b.naturalWidth / b.naturalHeight})<br>
+            Football: ${f.naturalWidth}x${f.naturalHeight} (Ratio: ${f.naturalWidth / f.naturalHeight})
+        `;
+            document.body.prepend(info);
+        };
+    </script>
+</body>
+
+</html>

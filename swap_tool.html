@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <img id="source" src="assets/anim_front_basketball_v10_final_flipped.png" style="display:none;">
+    <canvas id="canvas" width="1024" height="1024"></canvas>
+    <script>
+        window.onload = function () {
+            const img = document.getElementById('source');
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            const w = 1024;
+            const h = 1024;
+            const colW = w / 3;
+            const rowH = h / 2;
+
+            // Draw standard frames
+            // Frame 1 (0,0) -> Keep
+            ctx.drawImage(img, 0, 0, colW, rowH, 0, 0, colW, rowH);
+            // Frame 2 (1,0) -> Keep
+            ctx.drawImage(img, colW, 0, colW, rowH, colW, 0, colW, rowH);
+            // Frame 3 (2,0) -> Keep
+            ctx.drawImage(img, colW * 2, 0, colW, rowH, colW * 2, 0, colW, rowH);
+            // Frame 6 (2,1) -> Keep
+            ctx.drawImage(img, colW * 2, rowH, colW, rowH, colW * 2, rowH, colW, rowH);
+
+            // Swap Frame 4 (0,1) and Frame 5 (1,1)
+            // Draw Frame 5 (Src: colW, rowH) at Pos 4 (Dest: 0, rowH)
+            ctx.drawImage(img, colW, rowH, colW, rowH, 0, rowH, colW, rowH);
+
+            // Draw Frame 4 (Src: 0, rowH) at Pos 5 (Dest: colW, rowH)
+            ctx.drawImage(img, 0, rowH, colW, rowH, colW, rowH, colW, rowH);
+
+            console.log("Swap complete");
+        };
+    </script>
+</body>
+
+</html>

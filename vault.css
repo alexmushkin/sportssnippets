@@ -1,0 +1,274 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    color: #000;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Prevent vertical scroll */
+}
+
+.nav-container {
+    padding: 40px 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    /* Detach from flow for perfect carousel centering */
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.back-link {
+    position: absolute;
+    left: 20px;
+    top: 40px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: opacity 0.2s;
+}
+
+.back-link:hover {
+    opacity: 0.7;
+}
+
+.vault-title {
+    font-size: 3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+}
+
+.search-container {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 10px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+#vault-search {
+    flex: 2;
+    /* Takes more space */
+    padding: 12px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    border: 2px solid #eee;
+    border-radius: 30px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+    text-align: center;
+    outline: none;
+}
+
+#vault-search:focus {
+    border-color: #000;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid Layout - 4 Columns */
+/* --- CAROUSEL LAYOUT --- */
+.carousel-container {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+    /* Perfect Vertical Centering */
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    /* Masking for fade effect on edges */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/* Floating Scroll Arrow */
+.scroll-arrow {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    user-select: none;
+}
+
+.scroll-arrow:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.scroll-arrow.left {
+    left: 30px;
+    right: auto;
+}
+
+.scroll-arrow.right {
+    right: 30px;
+}
+
+.scroll-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-track {
+    display: flex;
+    gap: 50px;
+    /* Space between cards */
+    width: max-content;
+    /* Allow it to be as wide as needed */
+    animation: scroll-left 60s linear infinite;
+    animation-play-state: running;
+    /* Force running */
+    padding-left: 50px;
+}
+
+/* Hover Pause REMOVED per user request to keep it moving on load */
+/* .carousel-container:hover .carousel-track { animation-play-state: paused; } */
+
+.carousel-track.paused {
+    animation-play-state: paused;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        /* Move by 50% because we have 2 sets of cards (Original + Clone) */
+        /* JS will eventually need to calculate this exact pixel width for perfect loop, 
+           but for now, assuming logic: we move exactly half the track width if both sets are identical. 
+           ACTUALLY: The best way is to move -50% if the track holds exactly 2 sets. */
+        transform: translateX(-50%);
+    }
+}
+
+/* Hover Pause on container REMOVED - now handled by JS on cards */
+.carousel-track.hover-paused {
+    animation-play-state: paused;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+
+/* Modals removed for direct links */
+
+/* MAIN CARD CONTAINER (Structural) */
+.card {
+    width: 240px;
+    flex-shrink: 0;
+    aspect-ratio: 2.5/3.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    z-index: 1;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    /* CRITICAL: Visible overflow for subcards, NO background here */
+    overflow: visible !important;
+    margin: 0 auto;
+    border: none;
+    box-shadow: none;
+    background: none !important;
+}
+
+/* BACKGROUND LAYER (Cropped) */
+.card-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border: 1px solid #eaeaea;
+}
+
+/* RESET helper for pseudo elements used in CSS version */
+.card::before,
+.card::after {
+    display: none;
+}
+
+
+/* --- ARTICLE TITLES --- */
+.card-title {
+    position: relative;
+    z-index: 20;
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 20px;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    transition: color 0.3s;
+}
+
+.card:hover .card-title {
+    color: #555;
+}
+
+
+/* --- SHARED INTERACTION --- */
+
+.card.faded {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.05);
+    /* Slight pop */
+    z-index: 100;
+}
+

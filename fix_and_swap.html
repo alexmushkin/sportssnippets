@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <img id="source" src="assets/anim_front_basketball_v10_righty_1769837234375.png" style="display:none;">
+    <canvas id="canvas" width="1024" height="1024"></canvas>
+    <script>
+        window.onload = function () {
+            const img = document.getElementById('source');
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            const w = 1024;
+            const h = 1024;
+            const colW = w / 3;
+            const rowH = h / 2;
+
+            // Function to draw a cell flipped
+            function drawFlipped(srcX, srcY, destX, destY) {
+                ctx.save();
+                ctx.translate(destX + colW, destY);
+                ctx.scale(-1, 1);
+                ctx.drawImage(img, srcX, srcY, colW, rowH, 0, 0, colW, rowH);
+                ctx.restore();
+            }
+
+            // Process v10_righty (Sequence: 1, 2, 3 / 4, 5, 6)
+
+            // Row 1: Keep order 1, 2, 3 (Just flip pixels)
+            drawFlipped(0, 0, 0, 0);          // Frame 1 -> Pos 1
+            drawFlipped(colW, 0, colW, 0);    // Frame 2 -> Pos 2
+            drawFlipped(colW * 2, 0, colW * 2, 0);// Frame 3 -> Pos 3
+
+            // Row 2: User wants Swap 4 & 5
+            // Frame 4 (Follow Through) is at (0, rowH) in source.
+            // Frame 5 (Ball Drop) is at (colW, rowH) in source.
+
+            // Put Frame 5 (Ball Drop) at Position 4
+            drawFlipped(colW, rowH, 0, rowH);
+
+            // Put Frame 4 (Follow Through) at Position 5
+            drawFlipped(0, rowH, colW, rowH);
+
+            // Frame 6 -> Pos 6
+            drawFlipped(colW * 2, rowH, colW * 2, rowH);
+
+            console.log("Flip and Swap complete");
+        };
+    </script>
+</body>
+
+</html>
