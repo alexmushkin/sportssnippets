@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?t=12345">
+    <link rel="stylesheet" href="style.css?t=12347">
 </head>
 
 <body>
@@ -46,8 +46,8 @@
         </div>
 
         <div id="latest-preview-container" class="latest-preview-container" style="display: none; text-align: center; margin-top: 30px; width: 100%; display: flex; flex-direction: column; align-items: center;">
-            <h3 class="preview-title" style="color: white; font-family: 'Courier New', monospace; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 10px; text-align: center;">Latest on This Week: <br><span id="preview-title-text" style="color: #FF5722; font-size: 1.45rem;"></span></h3>
-            <div style="max-height: 450px; overflow-y: auto; padding-right: 15px; max-width: 650px; margin: 0 auto; padding-top: 10px; padding-bottom: 10px;">
+            <h3 class="preview-title" style="position: sticky; top: 0; background-color: #ffffff; padding: 15px 0; z-index: 100; border-bottom: 2px dashed #eee; width: 100%; color: black; font-family: 'Courier New', monospace; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 10px; text-align: center;"><span id="preview-title-text" style="color: #FF5722; font-size: 1.45rem;"></span></h3>
+            <div style="width: 100%; max-width: 650px; margin: 0 auto; padding-top: 10px; padding-bottom: 80px;">
                 <p id="preview-text" class="preview-text" style="color: #000; font-family: 'Courier New', monospace; font-size: 1.1rem; line-height: 1.6; min-height: 3em; text-align: center; white-space: pre-wrap; margin: 0;"></p>
             </div>
         </div>
@@ -130,7 +130,7 @@
             document.body.appendChild(errorDiv);
         };
     </script>
-    <script src="script.js?v=9.9"></script>
+    <script src="script.js?v=9.11"></script>
 </body>
 
 </html>

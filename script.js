@@ -31,6 +31,7 @@ class Ball {
         this.isShooting = false;
         this.hasSettled = false;
         this.waitingForNext = false;
+        this.isPaused = false;
     }
 
     createBallElement() {
@@ -43,10 +44,10 @@ class Ball {
             <div class="line curve-right"></div>
         `;
 
-        div.addEventListener('click', () => {
-            if (this.mode === 'NORMAL') {
-                this.vx = (Math.random() - 0.5) * 15;
-                this.vy = -15;
+        div.addEventListener('click', (e) => {
+            e.stopPropagation(); // Don't trigger other clicks
+            if (this === heroBall) {
+                this.isPaused = !this.isPaused;
             }
         });
 
@@ -55,6 +56,7 @@ class Ball {
 
     update(dtScale = 1) {
         if (!this.active) return;
+        if (this.isPaused) return;
 
         // --- MODE: NORMAL (Standard Physics) ---
         if (this.mode === 'NORMAL') {
@@ -309,7 +311,10 @@ document.addEventListener('click', (e) => {
     // Ignore clicks on links or the arrow toggle
     if (e.target.closest('a') || e.target.closest('#arrow-toggle')) return;
     
-    isPhysicsPaused = !isPhysicsPaused;
+    // Only pause the hero ball
+    if (typeof heroBall !== 'undefined' && heroBall) {
+        heroBall.isPaused = !heroBall.isPaused;
+    }
 });
 
 function loop() {
