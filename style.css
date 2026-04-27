@@ -437,3 +437,36 @@ body {
         transform: translateX(-50%) rotate(-2deg) skewX(-2deg);
     }
 }
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2rem !important;
+    }
+    .subtitle {
+        font-size: 0.85rem !important;
+    }
+    .nav-buttons-column {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    .nav-buttons {
+        flex-direction: column !important;
+        gap: 10px !important;
+        width: 100%;
+    }
+    .nav-btn {
+        width: 100% !important;
+        max-width: none !important;
+    }
+    .ball {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    .left-hoop, .right-hoop {
+        display: none !important;
+    }
+    .content-container {
+        padding: 0 10px !important;
+    }
+}

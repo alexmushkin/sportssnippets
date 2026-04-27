@@ -328,3 +328,40 @@ body {
 .main-feature-card::-webkit-scrollbar {
     display: none;
 }
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    .main-content-area {
+        padding-right: 0 !important;
+        width: 100%;
+    }
+    
+    .rolodex-sidebar {
+        position: relative !important;
+        right: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        margin-top: 20px;
+        bottom: auto !important;
+    }
+
+    .rolodex-container {
+        position: relative !important;
+        padding-bottom: 20px !important;
+    }
+
+    .main-feature-card .card-body {
+        padding: 20px !important;
+    }
+    
+    .rolodex-card {
+        /* Un-fan the cards on mobile so they are a straight scrollable list */
+        position: relative !important;
+        transform: none !important;
+        margin-bottom: 15px;
+    }
+    
+    .rolodex-card:hover {
+        transform: scale(1.05) !important;
+    }
+}

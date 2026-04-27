@@ -272,3 +272,28 @@ body {
     z-index: 100;
 }
 
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    .vault-title {
+        font-size: 2rem !important;
+        margin-bottom: 10px;
+    }
+    .card {
+        width: 180px !important;
+    }
+    .nav-container {
+        padding: 20px 10px !important;
+    }
+    .scroll-arrow {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 18px !important;
+    }
+    .scroll-arrow.left {
+        left: 10px !important;
+    }
+    .scroll-arrow.right {
+        right: 10px !important;
+    }
+}
+
